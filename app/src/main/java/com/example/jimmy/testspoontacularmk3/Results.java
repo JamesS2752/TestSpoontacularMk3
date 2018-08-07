@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.jimmy.testspoontacularmk3.model.ApIService;
@@ -28,15 +30,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Results extends AppCompatActivity {
-
+    public static String chosenRecipe = "key0";
     private TextView resultTextView;
     private TextView idTextView;
 
     private static final String TAG = "MainActivity";
 
     private RecyclerView recyclerview;
-    private List<String> recipeData = new ArrayList<>();
+    public static List<String> recipeData = new ArrayList<>();
     public static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+    public static String chosenRecipeData = "key0";
     public static String resultsStore = "key0";
     private List<Integer> ids = new ArrayList<>();
 
@@ -86,9 +89,6 @@ public class Results extends AppCompatActivity {
             return;
         }
 
-        resultTextView = findViewById(R.id.result);
-        idTextView = findViewById(R.id.id);
-
         Intent intent = getIntent();
         String ingredientsList = intent.getStringExtra(resultsStore);
 
@@ -100,6 +100,8 @@ public class Results extends AppCompatActivity {
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 String resultText = "";
                 List<Recipe> result = response.body();
+
+
 
                 for(int i = 0; i < result.size(); i++) {
                     String temp = result.get(i).toString();
@@ -132,68 +134,72 @@ public class Results extends AppCompatActivity {
 //                RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(result.getResults());
 //                recyclerview.setAdapter(recipeItemAdapter );
 
-
-            }
-
+    }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 System.out.println(call.toString());
                 t.printStackTrace();
             }
-
         });
+
+
+
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
 
-        spoonacularService = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
-                .build().create(ApIService.class);
-
-        boolean includeNutrition = false;
-
-        int id = 556470;
-
-        Call<RecipeInformation> call2 = spoonacularService.getRecipeInformation(Const.MASHAPE_KEY, "application/json", "application/json",
-                id, includeNutrition);
-        call2.enqueue(new Callback<RecipeInformation>() {
-
-            @Override
-            public void onResponse(Call<RecipeInformation> call2, Response<RecipeInformation> response) {
-                RecipeInformation result = response.body();
-                String resultText = result.toString();
-                System.out.println("TEST2:" + resultText);
-                resultTextView.setText("text");
-//                String summarised = resultText.substring(resultText.indexOf("summary='") + 9, resultText.indexOf(".'"));
-//                for(Recipe recipe : result) {
-//                    resultText += recipe.toString();
-//                } //Prints result to string too simply, need to have it in recycle view
-//                    result.setText(resultText); //Results printed
-
-
-
-//                WebView wv = (WebView) findViewById(R.id.WebView01);
-//                final String mimeType = "text/html";
-//                final String encoding = "UTF-8";
-//                wv.loadDataWithBaseURL("", summarised, mimeType, encoding, "");
-
-            }
-
-            @Override
-            public void onFailure(Call<RecipeInformation> call2, Throwable t) {
-                System.out.println(call2.toString());
-                t.printStackTrace();
-            }
-
-        });
+//        spoonacularService = new Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .client(client.build())
+//                .build().create(ApIService.class);
+//
+//        boolean includeNutrition = false;
+//
+//        int id = 556470;
+//
+//        Call<RecipeInformation> call2 = spoonacularService.getRecipeInformation(Const.MASHAPE_KEY, "application/json", "application/json",
+//                id, includeNutrition);
+//        call2.enqueue(new Callback<RecipeInformation>() {
+//
+//            @Override
+//            public void onResponse(Call<RecipeInformation> call2, Response<RecipeInformation> response) {
+//                RecipeInformation result = response.body();
+//                String resultText = result.toString();
+//                resultTextView = findViewById(R.id.result);
+//                idTextView = findViewById(R.id.id);
+//            //    System.out.println("TEST2:" + ids.get(0));
+//                resultTextView.setText(resultText);
+////                String summarised = resultText.substring(resultText.indexOf("summary='") + 9, resultText.indexOf(".'"));
+////                for(Recipe recipe : result) {
+////                    resultText += recipe.toString();
+////                } //Prints result to string too simply, need to have it in recycle view
+////                    result.setText(resultText); //Results printed
+//
+//
+//
+////                WebView wv = (WebView) findViewById(R.id.WebView01);
+////                final String mimeType = "text/html";
+////                final String encoding = "UTF-8";
+////                wv.loadDataWithBaseURL("", summarised, mimeType, encoding, "");
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RecipeInformation> call2, Throwable t) {
+//                System.out.println(call2.toString());
+//                t.printStackTrace();
+//            }
+//
+//        });
 
 
 
     }
+
+
     private void initRecycleView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData);

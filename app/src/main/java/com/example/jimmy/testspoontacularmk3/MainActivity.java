@@ -1,7 +1,7 @@
 package com.example.jimmy.testspoontacularmk3;
-//IN THIS VERSION: [v0.4] Displays relevant recipes in a recycledvIew, but disorganised and not displayed correctly, but RV works
-// Next Version: Be able to ingredients for each recipe, list it under each resultand highlight queried results
-// Note: Gotta reimplmenet RXjava support + MVP structure soon
+//IN THIS VERSION: [v0.5] Displays results inlist view, clicking on result will start next activity being result page,
+// id is passed to that page to make new call & load said results
+// Next Version: Gotta have recyclerView expand every item + Allow tabbed view to function for each individual recipe
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import com.example.jimmy.testspoontacularmk3.model.ApIService;
 import com.example.jimmy.testspoontacularmk3.model.api.Recipe;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     // Trailing slash is needed
     public static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
     public static String resultsStore = "key0";
+    public static List<String> providedIngredientsList = new ArrayList<>();
 
 
     private ApIService spoonacularService;
@@ -84,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ingredients = ingredientsEditText.getText().toString();
-
-
+                providedIngredientsList = Arrays.asList(ingredients.split("\\s*,\\s*"));
+                System.out.println("JAMES2: " + providedIngredientsList.toString());
                 submitIngredients(ingredients);
             }
         });

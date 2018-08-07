@@ -26,8 +26,8 @@ public class ApiClient {
     private static OkHttpClient okHttpClient;
 
     private ApIService apIService;
-    private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor(); //PcoE 1
-    private static final OkHttpClient.Builder httpClient = new OkHttpClient.Builder(); //PcoE 1
+    private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    private static final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     static {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -51,7 +51,7 @@ public class ApiClient {
 
     public ApiClient() {
         createRetrofitService();
-    } //PcoE2
+    }
 
     private void createRetrofitService() {
         apIService = new Retrofit.Builder()
