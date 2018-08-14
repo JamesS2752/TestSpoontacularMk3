@@ -3,6 +3,7 @@ package com.example.jimmy.testspoontacularmk3;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.example.jimmy.testspoontacularmk3.view.RecyclerViewAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,17 +33,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Results extends AppCompatActivity {
-    public static String chosenRecipe = "key0";
+    //    public static String chosenRecipe = "key0";
     private TextView resultTextView;
     private TextView idTextView;
 
     private static final String TAG = "MainActivity";
 
     private RecyclerView recyclerview;
+
     public static List<String> recipeData = new ArrayList<>();
+    public static List<String> recipeTitle = new ArrayList<>();
+    public static List<String> recipeImageList = new ArrayList<>();
+    public static List<String> recipeLikesList = new ArrayList<>();
+    public static List<String> recipeIDs = new ArrayList<>();
+
     public static final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+
     public static String chosenRecipeData = "key0";
     public static String resultsStore = "key0";
+
     private List<Integer> ids = new ArrayList<>();
 
     private ApIService spoonacularService;
@@ -102,39 +113,52 @@ public class Results extends AppCompatActivity {
                 List<Recipe> result = response.body();
 
 
-
-                for(int i = 0; i < result.size(); i++) {
+                for (int i = 0; i < result.size(); i++) {
                     String temp = result.get(i).toString();
                     recipeData.add(temp);
                 }
 
-                //CSEND data from Recipe list -> String list (toString())
+                for (int i = 0; i < result.size(); i++) {
+                    String temp = result.get(i).toString();
+                    String recipeImage = temp.substring(temp.indexOf("image='") + 7, temp.indexOf("', used"));
+                    recipeImageList.add(recipeImage);
+                }
+
+                for (int i = 0; i < result.size(); i++) {
+                    String temp = result.get(i).toString();
+                    String recipeTitleTemp = temp.substring(temp.indexOf("title=") + 6, temp.indexOf(", ima"));
+                    recipeTitle.add(recipeTitleTemp);
+                }
+
+                for (int i = 0; i < result.size(); i++) {
+                    String temp = result.get(i).toString();
+                    String recipeLikes = temp.substring(temp.indexOf("likes=") + 6, temp.indexOf("}"));
+                    recipeLikesList.add(recipeLikes);
+
+//                    String likesbyString = recipeLikesList.toString();
+//                    List<String> myList = new ArrayList<String>(Arrays.asList(likesbyString.split(",")));
+//                    Collections.sort(myList);
+//                    if(i == (result.size() - 1)) {
+//                        System.out.println("JAMESSAVERY22" + myList.toString());
+//                    }
+                }
+
+                for (int i = 0; i < result.size(); i++) {
+                    String temp = result.get(i).toString();
+                    String recipeLikes = temp.substring(temp.indexOf("id=") + 3, temp.indexOf(", title"));
+                    recipeIDs.add(recipeLikes);
+                }
+
 
                 initRecycleView();
-//                for(Recipe recipe : result) {// List to extract from :
-//                    resultText += recipe.toString();
-//                }
 
 
-                for(int i = 0; i < result.size(); i++) {
+                for (int i = 0; i < result.size(); i++) {
                     System.out.println("WORK: " + result.get(i));
-                } //JUST TO TEST THAT LIST IS FILLED!
+                }
 
-                //String foodId = resultText.substring(resultText.indexOf("id=") + 3, resultText.indexOf(","));
+            }
 
-
-//                for(int i = 0; i < result.size(); i++) {
-//                    int temp = Integer.parseInt(foodId);
-//                    ids.add(temp);
-//                }
-
-
-//                    resultTextView.setText(resultText); //Results printed
-
-//                RecipeItemAdapter recipeItemAdapter = new RecipeItemAdapter(result.getResults());
-//                recyclerview.setAdapter(recipeItemAdapter );
-
-    }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 System.out.println(call.toString());
@@ -143,67 +167,23 @@ public class Results extends AppCompatActivity {
         });
 
 
-
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-
-//        spoonacularService = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(client.build())
-//                .build().create(ApIService.class);
-//
-//        boolean includeNutrition = false;
-//
-//        int id = 556470;
-//
-//        Call<RecipeInformation> call2 = spoonacularService.getRecipeInformation(Const.MASHAPE_KEY, "application/json", "application/json",
-//                id, includeNutrition);
-//        call2.enqueue(new Callback<RecipeInformation>() {
-//
-//            @Override
-//            public void onResponse(Call<RecipeInformation> call2, Response<RecipeInformation> response) {
-//                RecipeInformation result = response.body();
-//                String resultText = result.toString();
-//                resultTextView = findViewById(R.id.result);
-//                idTextView = findViewById(R.id.id);
-//            //    System.out.println("TEST2:" + ids.get(0));
-//                resultTextView.setText(resultText);
-////                String summarised = resultText.substring(resultText.indexOf("summary='") + 9, resultText.indexOf(".'"));
-////                for(Recipe recipe : result) {
-////                    resultText += recipe.toString();
-////                } //Prints result to string too simply, need to have it in recycle view
-////                    result.setText(resultText); //Results printed
-//
-//
-//
-////                WebView wv = (WebView) findViewById(R.id.WebView01);
-////                final String mimeType = "text/html";
-////                final String encoding = "UTF-8";
-////                wv.loadDataWithBaseURL("", summarised, mimeType, encoding, "");
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<RecipeInformation> call2, Throwable t) {
-//                System.out.println(call2.toString());
-//                t.printStackTrace();
-//            }
-//
-//        });
-
-
-
     }
-
 
     private void initRecycleView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData, recipeImageList, recipeTitle, recipeLikesList, recipeIDs);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                1);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
+
+
 }

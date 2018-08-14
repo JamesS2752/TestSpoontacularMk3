@@ -19,7 +19,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".Results" />
-        <activity android:name=".RecipeInformationAct"></activity>
+        <activity android:name=".RecipeInformationAct"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light"> //Find equivalent of this for appcmobat
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

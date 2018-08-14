@@ -4,6 +4,8 @@ package com.example.jimmy.testspoontacularmk3.model;
 import com.example.jimmy.testspoontacularmk3.Const;
 import com.example.jimmy.testspoontacularmk3.model.api.IngredientsMapper;
 import com.example.jimmy.testspoontacularmk3.model.api.Recipe;
+import com.example.jimmy.testspoontacularmk3.model.api.RecipeSummary;
+import com.example.jimmy.testspoontacularmk3.model.api.RecipeSummaryMapper;
 
 import java.io.IOException;
 import java.util.List;
@@ -72,6 +74,17 @@ public class ApiClient {
 
         call.enqueue(callback);
     }
+
+//    public void summarizeRecipe(final RecipeSummaryMapper recipeSummaryMapper,
+//                                final Callback<RecipeSummary> callback) {
+//
+//        Call<RecipeSummary> call = apIService.getRecipeSummary(
+//                Const.MASHAPE_KEY,
+//                Const.JSON_ACCEPT_HEADER,
+//                recipeSummaryMapper.getId()
+//        );
+//        call.enqueue(callback);
+//    }
 
 //    public static Retrofit getClient(Context context) {  //Populates retrofit
 //
