@@ -4,20 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Results"
-    android:orientation="vertical">
-
-    <TextView
-        android:text="..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/result" />
-
-    <TextView
-        android:text="..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/id" />
+    tools:context=".view.Results"
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"

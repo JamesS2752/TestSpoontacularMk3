@@ -335,10 +335,10 @@ public class RecipeInformation {
     @Override
     public String toString() {
         return "RecipeInformation{" +
-//                "vegetarian=" + vegetarian +
-////                ", vegan=" + vegan +
-////                ", glutenFree=" + glutenFree +
-////                ", dairyFree=" + dairyFree +
+                "vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", glutenFree=" + glutenFree +
+                ", dairyFree=" + dairyFree +
 ////                ", veryHealthy=" + veryHealthy +
 ////                ", cheap=" + cheap +
 ////                ", veryPopular=" + veryPopular +
@@ -346,21 +346,21 @@ public class RecipeInformation {
 ////                ", weightWatcherSmartPoints=" + weightWatcherSmartPoints +
 ////                ", gaps='" + gaps + '\'' +
 ////                ", lowFodmap=" + lowFodmap +
-////                ", ketogenic=" + ketogenic +
+                ", ketogenic=" + ketogenic +
 ////                ", whole30=" + whole30 +
-////                ", servings=" + servings +
+                ", servings=" + servings +
 ////                ", sourceUrl='" + sourceUrl + '\'' +
 ////                ", spoonacularSourceUrl='" + spoonacularSourceUrl + '\'' +
 ////                ", aggregateLikes=" + aggregateLikes +
-////                ", creditText='" + creditText + '\'' +
+                ", creditText='" + creditText + '\'' +
 ////                ", sourceName='" + sourceName + '\'' +
                 ", extendedIngredients=" + extendedIngredients +
 //                ", id=" + id +
-//                ", title='" + title + '\'' +
-//                ", readyInMinutes=" + readyInMinutes +
-//                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", readyInMinutes=" + readyInMinutes +
+                ", image='" + image + '\'' +
 //                ", imageType='" + imageType + '\'' +
-//                ", instructions='" + instructions + '\'' +
+                ", instructions='" + instructions + '\'' +
                 '}';
     }
 }

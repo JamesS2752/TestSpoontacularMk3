@@ -3,6 +3,7 @@ package com.example.jimmy.testspoontacularmk3.model;
 
 import com.example.jimmy.testspoontacularmk3.model.api.Recipe;
 import com.example.jimmy.testspoontacularmk3.model.api.RecipeInformation;
+import com.example.jimmy.testspoontacularmk3.model.api.RecipeSummary;
 
 import java.util.List;
 
@@ -31,4 +32,13 @@ public interface ApIService { //Declare what kind of calls we are able to make. 
             @Header("Accept") String accept,
             @Path("id") int id,
             @Query("includeNutrition") boolean includeNutrition);
+
+    @GET("recipes/{id}/summary")
+    Call<RecipeSummary> getRecipeSummary(
+            @Header("X-Mashape-Key") String mashapeKey,
+            @Header("Content-Type") String contentType,
+            @Header("Accept") String accept,
+//            @Query("id") int id);
+            @Path("id") int id);
+
     }

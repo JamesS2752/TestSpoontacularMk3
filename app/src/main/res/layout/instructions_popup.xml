@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="400dp"
+    android:background="@drawable/layout_bg"
+    android:padding="15dp"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="X"
+        android:id="@+id/txtclose"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:text="@string/instructions"
+        android:textColor="@color/charcoal"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="@string/_1_enter_the_ingredients_you_have_lying_around_make_sure_to_seperate_each_ingredient_with_a_comma"
+        android:textColor="@color/charcoal"
+        android:layout_marginTop="6dp"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="189dp"
+        android:layout_height="120dp"
+        android:src="@drawable/appsc"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="@string/_2_click_on_search_to_list_all_recipes_with_your_ingredients"
+        android:textColor="@color/charcoal"
+        android:layout_marginTop="6dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="@string/_3_simply_click_on_a_recipe_which_takes_your_fancy_to_see_how_to_make_it"
+        android:textColor="@color/charcoal"
+        android:layout_marginTop="6dp"/>
+
+</LinearLayout>
