@@ -12,6 +12,8 @@ public interface ResultsContract {
     interface Presenter extends BasePresenter {
         void retrieveData(String ingredients);
         void initData(List response);
+
+        void organiseByLikes(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs);
     }
 
     interface View extends BaseView<ResultsContract.Presenter> {

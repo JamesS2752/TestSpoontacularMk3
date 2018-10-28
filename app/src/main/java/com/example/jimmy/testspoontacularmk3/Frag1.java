@@ -43,11 +43,7 @@ public class Frag1 extends Fragment {
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
 
     public static String data;
-
-    private TextView recipeInformation;
     public String chosenRecipe2 = "key0";
-    public String chosenRecipe22 = "key01";
-    public String chosenRecipe3 = "key999";
 
     static {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -206,11 +202,6 @@ public class Frag1 extends Fragment {
                 String filter1 = filter.replaceAll("<b>", "");
                 String filter2 = filter1.replaceAll("</b>", "");
 
-
-//                String pattern12 = "Similar recipes include";
-//                String pattern22 = "/a>.";
-//                String regexString2 = Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2);
-//                String filter3 =  Pattern.compile(regexString2).matcher(filter2).replaceAll("");
 
 //POINT OF ALL THIS LAST BIT OF CODE IS TO REMOVE EVERYTHING AFTER THE SECOND LAST FULLSTOP!
                 int endIndex = ordinalIndexOf(filter2, ".", 4);

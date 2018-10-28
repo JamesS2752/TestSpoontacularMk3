@@ -76,17 +76,16 @@ public class Results extends AppCompatActivity implements ResultsContract.View {
         Intent intent = getIntent();
         String ingredientsList = intent.getStringExtra(resultsStore);
         System.out.println("JAMES223" + ingredientsList);
-        presenter.retrieveData(ingredientsList/*.toString()*/); //1of1 Caused by: java.lang.NullPointerException: Attempt to invoke interface method 'void com.example.jimmy.testspoontacularmk3.presenter.ResultsContract$Presenter.initData(java.lang.String)' on a null object reference
-    //    at com.example.jimmy.testspoontacularmk3.view.Results.prepData(Results.java:79)
-   //     at com.example.jimmy.testspoontacularmk3.presenter.ResultsPresenter.<init>(ResultsPresenter.java:70)
-     //   at com.example.jimmy.testspoontacularmk3.view.Results.onCreate(Results.java:67)
-        //I printed 'ingredientsList' and its a String and not null!!
+        presenter.retrieveData(ingredientsList);
     }
 
     @Override
-    public void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs) {
+    public void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikes, List recipeIDs) {
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData, recipeImageList, recipeTitle, recipeLikesList, recipeIDs);
+
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData, recipeImageList, recipeTitle, recipeLikes, recipeIDs);
+        //Jimmy TODO Atm Recipe likes are passed here
+
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

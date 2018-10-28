@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainActivityContract.View{
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
     Dialog myDialog;
 
     private MainActivityContract.Presenter presenter;
@@ -43,28 +43,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void ingredientEngineSubmit() {
-            ingredientsEditText = (EditText) findViewById(R.id.ingredients_edit_text);
-            sendButton = (Button) findViewById(R.id.send);
-            sendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String ingredients = ingredientsEditText.getText().toString();
-                    providedIngredientsList = Arrays.asList(ingredients.split("\\s*,\\s*"));
-                    System.out.println("JAMES2: " + providedIngredientsList.toString());
-//                if (ingredients != null && !ingredients.trim().isEmpty()) {
+        ingredientsEditText = (EditText) findViewById(R.id.ingredients_edit_text);
+        sendButton = (Button) findViewById(R.id.send);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ingredients = ingredientsEditText.getText().toString();
+                providedIngredientsList = Arrays.asList(ingredients.split("\\s*,\\s*"));
+                System.out.println("JAMES2: " + providedIngredientsList.toString());
 
-
-                    //String ingredientsToSubmit = ingredientsList.replace(" ", "").trim();
-
-                    Intent intent = new Intent(getApplicationContext(), Results.class);
-                    intent.putExtra(resultsStore, ingredients);
-                    startActivity(intent);
-
-
-//                }
-                }
-            });
-        }
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                intent.putExtra(resultsStore, ingredients);
+                startActivity(intent);
+            }
+        });
+    }
 
     public void instructionsDialog() {
         TextView txtClose;

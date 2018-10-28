@@ -10,6 +10,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.Result;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -33,11 +34,7 @@ public class ResultsPresenter implements ResultsContract.Presenter {
     public static List<String> recipeImageList = new ArrayList<>();
     public static List<String> recipeLikesList = new ArrayList<>();
     public static List<String> recipeIDs = new ArrayList<>();
-
-    public static String chosenRecipeData = "key0";
-    public static String resultsStore = "key0";
-
-    private List<Integer> ids = new ArrayList<>();
+    public static List<Integer> recipeLikes = new ArrayList<>();
 
     private ApIService spoonacularService;
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -55,7 +52,6 @@ public class ResultsPresenter implements ResultsContract.Presenter {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
-//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
@@ -66,15 +62,11 @@ public class ResultsPresenter implements ResultsContract.Presenter {
     public ResultsPresenter(Context context, ResultsContract.View view) { //Spawn constructor
         this.context = context;
         this.view = view;
-        //view.setPresenter(this);
-
-
     }
 
     @Override
     public void start() {
         view.prepData();
-//        view.initRecycleView();
     }
 
     @Override
@@ -100,8 +92,6 @@ public class ResultsPresenter implements ResultsContract.Presenter {
         }
 
 
-
-
         Call<List<Recipe>> call = spoonacularService.findRecipesByIngredients(Const.MASHAPE_KEY, "application/json", "application/json",
                 mustFillIngredients, ingredients, mustLimitLicense, numberAsInteger, rankingAsInteger);
         call.enqueue(new Callback<List<Recipe>>() {
@@ -124,7 +114,7 @@ public class ResultsPresenter implements ResultsContract.Presenter {
 
     @Override
     public void initData(List response) {
-    List result = response;
+        List result = response;
 
         recipeData.clear();
         for (int i = 0; i < result.size(); i++) {
@@ -161,6 +151,35 @@ public class ResultsPresenter implements ResultsContract.Presenter {
             recipeIDs.add(recipeLikes);
         }
 
-        view.initRecycleView(recipeData, recipeImageList, recipeTitle, recipeLikesList, recipeIDs);
+        for (Object indexValue : recipeLikesList) {
+            for (int j = 0; j < recipeLikesList.size(); j++) {
+                if (recipeImageList.get(j) instanceof String) {
+                    String temp = (String) recipeLikesList.get(j);
+                    int pass = Integer.parseInt(temp);
+                    recipeLikes.add(pass);
+                }
+            }
+        }
+        Collections.sort(recipeLikes, Collections.<Integer>reverseOrder());
+
+        view.initRecycleView(recipeData, recipeImageList, recipeTitle, recipeLikes, recipeIDs);
+    }
+
+    @Override
+    public void organiseByLikes(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs) {
+        System.out.println("JIMMY: " + recipeLikesList);
+
+        for (Object indexValue : recipeLikesList) {
+            for (int j = 0; j < recipeLikesList.size(); j++) {
+                if (recipeImageList.get(j) instanceof String) {
+                    String temp = (String) recipeLikesList.get(j);
+                    int pass = Integer.parseInt(temp);
+                    recipeLikes.add(pass);
+                }
+            }
+        }
+        Collections.sort(recipeLikes, Collections.<Integer>reverseOrder());
+
+        System.out.println("JIMMY: " + recipeLikes);
     }
 }
