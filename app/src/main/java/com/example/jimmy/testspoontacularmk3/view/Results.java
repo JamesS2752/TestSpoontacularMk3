@@ -40,27 +40,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Results extends AppCompatActivity implements ResultsContract.View {
     private ResultsContract.Presenter presenter;
-    ResultsPresenter resultsPresenter;
-
-    private TextView resultTextView;
-    private TextView idTextView;
-
-    private static final String TAG = "MainActivity";
-
-    private RecyclerView recyclerview;
-
-    public static List<String> recipeData;// = new ArrayList<>();
-    public static List<String> recipeTitle;// = new ArrayList<>();
-    public static List<String> recipeImageList;// = new ArrayList<>();
-    public static List<String> recipeLikesList;// = new ArrayList<>();//No concrete implementation allowed, this approach works but not recommended. Just pass as variable through M like in prev issue
-    public static List<String> recipeIDs;// = new ArrayList<>();
 
     public static String chosenRecipeData = "key0";
     public static String resultsStore = "key0";
-
-    private List<Integer> ids = new ArrayList<>();
-
-    //public String ingredientsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +62,10 @@ public class Results extends AppCompatActivity implements ResultsContract.View {
     }
 
     @Override
-    public void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikes, List recipeIDs) {
+    public void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs) {
         RecyclerView recyclerView = findViewById(R.id.recyclerView2);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData, recipeImageList, recipeTitle, recipeLikes, recipeIDs);
-        //Jimmy TODO Atm Recipe likes are passed here
-
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, recipeData, recipeImageList, recipeTitle, recipeLikesList, recipeIDs);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

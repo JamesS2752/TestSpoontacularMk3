@@ -10,7 +10,6 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
     public MainActivityPresenter(Context context, MainActivityContract.View view) { //Spawn constructor
         this.context = context;
         this.view = view;
-        //view.setPresenter(this);
         view.ingredientEngineSubmit();
     }
 
@@ -18,6 +17,5 @@ public class MainActivityPresenter implements MainActivityContract.Presenter {
     public void start() {
 
     }
-
 
 }

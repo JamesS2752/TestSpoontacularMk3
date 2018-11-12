@@ -38,7 +38,6 @@ public class Frag3 extends Fragment {
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
 
-    private TextView recipeInformationTextView;
     private List<String> instructionsList = new ArrayList<>();
     public String chosenRecipe2 = "key0";
 
@@ -54,7 +53,6 @@ public class Frag3 extends Fragment {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
-//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
@@ -69,9 +67,8 @@ public class Frag3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag3_layout, container, false);
-        String value = getArguments().getString("key999");
 
-        final TextView instructionsTV = (TextView) rootView.findViewById(R.id.instructions);
+        final TextView instructionsTV = rootView.findViewById(R.id.instructions);
 
         Bundle bundle = this.getArguments();
         String chosenRecipe = bundle.getString(chosenRecipe2, "22");
@@ -106,7 +103,6 @@ public class Frag3 extends Fragment {
                     instructionsList.add(instruction);
                 }
 
-
                 int i = 1;
                 StringBuilder builder = new StringBuilder();
                 for (String instructs : instructionsList) {
@@ -123,7 +119,6 @@ public class Frag3 extends Fragment {
                 t.printStackTrace();
             }
         });
-
 
         return rootView;
     }

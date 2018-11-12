@@ -91,14 +91,12 @@ public class ResultsPresenter implements ResultsContract.Presenter {
             return;
         }
 
-
         Call<List<Recipe>> call = spoonacularService.findRecipesByIngredients(Const.MASHAPE_KEY, "application/json", "application/json",
                 mustFillIngredients, ingredients, mustLimitLicense, numberAsInteger, rankingAsInteger);
         call.enqueue(new Callback<List<Recipe>>() {
 
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                String resultText = "";
                 List<Recipe> result = response.body();
 
                 initData(result);
@@ -114,7 +112,7 @@ public class ResultsPresenter implements ResultsContract.Presenter {
 
     @Override
     public void initData(List response) {
-        List result = response;
+    List result = response;
 
         recipeData.clear();
         for (int i = 0; i < result.size(); i++) {
@@ -160,26 +158,17 @@ public class ResultsPresenter implements ResultsContract.Presenter {
                 }
             }
         }
+
         Collections.sort(recipeLikes, Collections.<Integer>reverseOrder());
 
-        view.initRecycleView(recipeData, recipeImageList, recipeTitle, recipeLikes, recipeIDs);
-    }
-
-    @Override
-    public void organiseByLikes(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs) {
-        System.out.println("JIMMY: " + recipeLikesList);
-
-        for (Object indexValue : recipeLikesList) {
-            for (int j = 0; j < recipeLikesList.size(); j++) {
-                if (recipeImageList.get(j) instanceof String) {
-                    String temp = (String) recipeLikesList.get(j);
-                    int pass = Integer.parseInt(temp);
-                    recipeLikes.add(pass);
-                }
-            }
+        /* Specify the size of the list up front to prevent resizing. */
+        List<String> recipeLikesString = new ArrayList<>(recipeLikes.size());
+        for (Integer myInt : recipeLikes) {
+            recipeLikesString.add(String.valueOf(myInt));
         }
-        Collections.sort(recipeLikes, Collections.<Integer>reverseOrder());
+        System.out.println("Empty?: " + recipeLikes);
 
-        System.out.println("JIMMY: " + recipeLikes);
+
+        view.initRecycleView(recipeData, recipeImageList, recipeTitle, recipeLikesString, recipeIDs);
     }
 }
