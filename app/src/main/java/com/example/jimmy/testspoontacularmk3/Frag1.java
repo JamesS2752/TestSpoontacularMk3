@@ -57,7 +57,6 @@ public class Frag1 extends Fragment {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
-//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
@@ -79,15 +78,15 @@ public class Frag1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag1_layout, container, false);
 
-        final TextView recipeTitle = (TextView) rootView.findViewById(R.id.recipeTitle);
-        final TextView servesInt = (TextView) rootView.findViewById(R.id.servesInt);
-        final TextView desc = (TextView) rootView.findViewById(R.id.description);
+        final TextView recipeTitle = rootView.findViewById(R.id.recipeTitle);
+        final TextView servesInt = rootView.findViewById(R.id.servesInt);
+        final TextView desc = rootView.findViewById(R.id.description);
 
-        vegetarianOption = (ImageView) rootView.findViewById(R.id.vegetarianBoolean);
-        veganOption = (ImageView) rootView.findViewById(R.id.veganBoolean);
-        glutenFreeOption = (ImageView) rootView.findViewById(R.id.glutenFreeBoolean);
-        dairyFreeOption = (ImageView) rootView.findViewById(R.id.dairyFreeBoolean);
-        ketogenicOption = (ImageView) rootView.findViewById(R.id.ketogenicBoolean);
+        vegetarianOption = rootView.findViewById(R.id.vegetarianBoolean);
+        veganOption = rootView.findViewById(R.id.veganBoolean);
+        glutenFreeOption = rootView.findViewById(R.id.glutenFreeBoolean);
+        dairyFreeOption = rootView.findViewById(R.id.dairyFreeBoolean);
+        ketogenicOption = rootView.findViewById(R.id.ketogenicBoolean);
 
         Bundle bundle = this.getArguments();
         String chosenRecipe = bundle.getString(chosenRecipe2, "22");
@@ -113,14 +112,8 @@ public class Frag1 extends Fragment {
                 RecipeInformation result = response.body();
                 data = result.toString();
 
-                System.out.println("Frag1: " + data);
-
-                System.out.println("WORKERINO PLS" + data);
-
                 String Title = data.substring(data.indexOf("title='") + 7, data.indexOf("', readyIn"));
 
-
-                System.out.println("TITLE:" + Title);
                 recipeTitle.setText(Title);
 
                 String pattern1 = "servings=";
@@ -130,9 +123,8 @@ public class Frag1 extends Fragment {
                 Matcher matcher = pattern.matcher(data);
                 while (matcher.find()) {
                     String servings = matcher.group(1);
-                    System.out.println("JAMESSAVERY: " + servings);
                     servesInt.setText(servings);
-                } //WHY WONT WORK
+                }
 
                 String vegetarianBoolean = data.substring(data.indexOf("vegetarian=") + 11, data.indexOf("vegetarian=") + 16);
                 if (vegetarianBoolean.equals("true,")) {
@@ -207,8 +199,6 @@ public class Frag1 extends Fragment {
                 int endIndex = ordinalIndexOf(filter2, ".", 4);
                 String filter3 = filter2.substring(0, endIndex + 1);
                 desc.setText(filter3);
-                System.out.println("JAMESSAVERY23" + filter);
-
             }
 
             @Override
@@ -227,6 +217,5 @@ public class Frag1 extends Fragment {
             pos = str.indexOf(substr, pos + 1);
         return pos;
     }
-
 
 }

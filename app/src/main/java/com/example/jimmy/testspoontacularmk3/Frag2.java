@@ -33,9 +33,6 @@ public class Frag2 extends Fragment {
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
 
-    private TextView recipeInformationTextView;
-    private List<String> ingredients = new ArrayList<>();
-    public String chosenRecipe22 = "key01";
     public String chosenRecipe2 = "key0";
     public static List<String> ingredientsList = new ArrayList<>();
 
@@ -51,7 +48,6 @@ public class Frag2 extends Fragment {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
-//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
@@ -63,8 +59,6 @@ public class Frag2 extends Fragment {
         // Required empty public constructor
     }
 
-    //List<String> ingredientsList = Arrays.asList(data2.split("\\s*,\\s*"));
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag2_layout, container, false);
@@ -74,20 +68,16 @@ public class Frag2 extends Fragment {
         String parsedID = chosenRecipe.substring(chosenRecipe.indexOf("id=") + 3, chosenRecipe.indexOf(","));
         int id = Integer.parseInt(parsedID);
 
-
-
         boolean includeNutrition = false;
 
-        final String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
-
         spoonacularService = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Const.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build().create(ApIService.class);
 
-        final TextView providedIngs = (TextView) rootView.findViewById(R.id.providedIngredients);
-        final TextView extraIngs = (TextView) rootView.findViewById(R.id.ExtraIngredients);
+        final TextView providedIngs = rootView.findViewById(R.id.providedIngredients);
+        final TextView extraIngs = rootView.findViewById(R.id.ExtraIngredients);
 
         Call<RecipeInformation> cal1 = spoonacularService.getRecipeInformation(Const.MASHAPE_KEY, "application/json", "application/json",
                 id, includeNutrition);
@@ -117,7 +107,6 @@ public class Frag2 extends Fragment {
                     ingredientsList.add(ingredient);
                 }//INGREDIENTS EXTRACTED HERE
 
-
                 for (int a = 0; a < MainActivity.providedIngredientsList.size(); a++) {
                     for (int b = 0; b < ingredientsList.size(); b++) {
                         if (ingredientsList.get(b).contains(MainActivity.providedIngredientsList.get(a))) {
@@ -141,16 +130,9 @@ public class Frag2 extends Fragment {
                                 }
                                 extraIngs.setText(usedIngs);
                             }
-
-
                         }
                     }
                 }
-
-
-
-
-
             }
 
             @Override
@@ -159,9 +141,6 @@ public class Frag2 extends Fragment {
                 t.printStackTrace();
             }
         });
-
-
-
 
         return rootView;
     }

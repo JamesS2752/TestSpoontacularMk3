@@ -36,11 +36,8 @@ public class RecipeInformationAct extends AppCompatActivity {
     private ApIService spoonacularService;
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
-    private TextView recipeInformation;
 
     public String chosenRecipe2 = "key0";
-
-    public static List<String> ingredientsList = new ArrayList<>();
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -58,7 +55,6 @@ public class RecipeInformationAct extends AppCompatActivity {
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
-//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
@@ -68,8 +64,6 @@ public class RecipeInformationAct extends AppCompatActivity {
 
     Intent intent;
     String chosenRecipe;
-//    Intent intent2;
-//    String summary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,42 +79,22 @@ public class RecipeInformationAct extends AppCompatActivity {
         intent = getIntent();
         chosenRecipe = intent.getStringExtra(Results.chosenRecipeData);
 
-//        Bundle bundle = getIntent().getExtras();
-//        String recipeSummary = bundle.getString(RecyclerViewAdapter.recipeSummary);
-//        System.out.println("workjamesq1234" + recipeSummary);
-
-//        intent2 = getIntent();
-//        summary = intent2.getStringExtra(Results.resultsStore);
-
-//        System.out.println("workjamesq1234" + summary);
-
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
-
-
-
         return true;
     }
 
@@ -164,7 +138,7 @@ public class RecipeInformationAct extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            TextView textView = rootView.findViewById(R.id.section_label);
             return rootView;
         }
     }

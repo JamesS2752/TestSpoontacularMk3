@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.jimmy.testspoontacularmk3.Const;
 import com.example.jimmy.testspoontacularmk3.R;
 import com.example.jimmy.testspoontacularmk3.RecipeInformationAct;
 import com.example.jimmy.testspoontacularmk3.model.ApIService;
@@ -34,14 +33,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecycleViewAdapter";
 
-    private List<String> titles;
-    private List<String> images;
-    private List<String> recipeTitle;
-    private List<String> recipeLikes;
-    private List<String> recipeIDs;
+    private List<String> titles = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
+    private List<String> recipeTitle = new ArrayList<>();
+    private List<String> recipeLikes = new ArrayList<>();
+    private List<String> recipeIDs = new ArrayList<>();
     private Context mContext;
     public static String recipeData = "key0";
+    public static String recipeSummary = "key1";
 
+    String BASE_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/";
+
+    private ApIService spoonacularService;
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
 
@@ -57,12 +60,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 Request request = original.newBuilder()
                         .header("Content-Type", "application/json")
+//                        .header("Accept", "application/json")
                         .method(original.method(), original.body())
                         .build();
                 return chain.proceed(request);
             }
         });
     }
+
 
     public RecyclerViewAdapter(Context mContext, List<String> titles, List<String> images, List<String> recipeTitle, List<String> recipeLikes, List<String> recipeIDs) {
         this.titles = titles;
@@ -78,14 +83,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.result_layout, parent, false);
         final ViewHolder holder = new ViewHolder(itemView);
 
-        ApIService spoonacularService = new Retrofit.Builder()
-                .baseUrl(Const.BASE_URL)
+        spoonacularService = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build().create(ApIService.class);
 
         return new ViewHolder(itemView);
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
@@ -139,6 +145,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             likes = itemView.findViewById(R.id.recipeLikes);
         }
     }
+
 }
 
 
