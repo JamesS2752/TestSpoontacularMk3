@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jimmy.testspoontacularmk3.R;
+import com.example.jimmy.testspoontacularmk3.CustomViewGroup.SearchEditText;
 import com.example.jimmy.testspoontacularmk3.presenter.MainActivityContract;
 import com.example.jimmy.testspoontacularmk3.presenter.MainActivityPresenter;
 
@@ -23,7 +24,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
     Dialog myDialog;
 
-    private MainActivityContract.Presenter presenter;
     MainActivityPresenter mainActivityPresenter;
 
     private EditText ingredientsEditText;
@@ -37,20 +37,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SearchEditText searchEditText = new SearchEditText(getApplicationContext());
+
         mainActivityPresenter = new MainActivityPresenter(getApplicationContext(), this);
         myDialog = new Dialog(this);
     }
 
     @Override
     public void ingredientEngineSubmit() {
-        ingredientsEditText = (EditText) findViewById(R.id.ingredients_edit_text);
-        sendButton = (Button) findViewById(R.id.send);
+        ingredientsEditText = findViewById(R.id.ingredients_edit_text);
+        sendButton = findViewById(R.id.send);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ingredients = ingredientsEditText.getText().toString();
                 providedIngredientsList = Arrays.asList(ingredients.split("\\s*,\\s*"));
-                System.out.println("JAMES2: " + providedIngredientsList.toString());
 
                 Intent intent = new Intent(getApplicationContext(), Results.class);
                 intent.putExtra(resultsStore, ingredients);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     public void instructionsDialog() {
         TextView txtClose;
         myDialog.setContentView(R.layout.instructions_popup);
-        txtClose = (TextView) myDialog.findViewById(R.id.txtclose);
+        txtClose = myDialog.findViewById(R.id.txtclose);
 
         txtClose.setOnClickListener(new View.OnClickListener() {
             @Override

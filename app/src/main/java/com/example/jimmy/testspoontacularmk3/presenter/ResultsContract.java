@@ -17,5 +17,6 @@ public interface ResultsContract {
     interface View extends BaseView<ResultsContract.Presenter> {
         void prepData();
         void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs); //Pass as reference to fix recyclerview issues
+        void hideProgressBar();
     }
 }

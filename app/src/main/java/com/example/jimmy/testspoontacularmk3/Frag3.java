@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jimmy.testspoontacularmk3.model.ApIService;
@@ -33,10 +35,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.view.View.GONE;
+
 public class Frag3 extends Fragment {
     private ApIService spoonacularService;
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static final OkHttpClient.Builder client = new OkHttpClient.Builder();
+
+    private ProgressBar progressBar;
+    private FrameLayout frameLayout;
 
     private List<String> instructionsList = new ArrayList<>();
     public String chosenRecipe2 = "key0";
@@ -68,6 +75,9 @@ public class Frag3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.frag3_layout, container, false);
 
+        progressBar = rootView.findViewById(R.id.progressBarFrag1);
+        frameLayout = rootView.findViewById(R.id.frameLayout);
+
         final TextView instructionsTV = rootView.findViewById(R.id.instructions);
 
         Bundle bundle = this.getArguments();
@@ -90,6 +100,7 @@ public class Frag3 extends Fragment {
 
             @Override
             public void onResponse(Call<RecipeInformation> cal1, Response<RecipeInformation> response) {
+                hideProgressBar();
                 RecipeInformation result = response.body();
                 String data = result.toString();
 
@@ -115,12 +126,18 @@ public class Frag3 extends Fragment {
 
             @Override
             public void onFailure(Call<RecipeInformation> call, Throwable t) {
+                hideProgressBar();
                 System.out.println(call.toString());
                 t.printStackTrace();
             }
         });
 
         return rootView;
+    }
+
+    public void hideProgressBar() {
+        progressBar.setVisibility(GONE);
+        frameLayout.setVisibility(GONE);
     }
 
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.jimmy.testspoontacularmk3.Const;
@@ -38,8 +39,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.view.View.GONE;
+
 public class Results extends AppCompatActivity implements ResultsContract.View {
     private ResultsContract.Presenter presenter;
+
+    private ProgressBar progressBar;
 
     public static String chosenRecipeData = "key0";
     public static String resultsStore = "key0";
@@ -48,6 +53,9 @@ public class Results extends AppCompatActivity implements ResultsContract.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        progressBar = findViewById(R.id.progressBar);
+
         presenter = new ResultsPresenter(getApplicationContext(), this);
         presenter.start();
     }
@@ -57,9 +65,11 @@ public class Results extends AppCompatActivity implements ResultsContract.View {
     public void prepData() {
         Intent intent = getIntent();
         String ingredientsList = intent.getStringExtra(resultsStore);
-        System.out.println("JAMES223" + ingredientsList);
         presenter.retrieveData(ingredientsList);
     }
+
+
+
 
     @Override
     public void initRecycleView(List recipeData, List recipeImageList, List recipeTitle, List recipeLikesList, List recipeIDs) {
@@ -76,6 +86,11 @@ public class Results extends AppCompatActivity implements ResultsContract.View {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 1);
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(GONE);
     }
 
     @Override
