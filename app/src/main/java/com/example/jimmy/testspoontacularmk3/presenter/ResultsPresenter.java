@@ -166,9 +166,9 @@ public class ResultsPresenter implements ResultsContract.Presenter {
         for (Integer myInt : recipeLikes) {
             recipeLikesString.add(String.valueOf(myInt));
         }
-        System.out.println("Empty?: " + recipeLikes);
 
 
         view.initRecycleView(recipeData, recipeImageList, recipeTitle, recipeLikesString, recipeIDs);
+        view.hideProgressBar();
     }
 }

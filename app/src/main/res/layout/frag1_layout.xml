@@ -6,6 +6,21 @@
     android:background="@color/colorAccent"
     android:orientation="vertical">
 
+    <FrameLayout
+        android:visibility="visible"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar"
+            android:id="@+id/progressBarFrag1"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+
     <TextView
         android:id="@+id/recipeTitle"
         android:layout_width="wrap_content"
@@ -150,6 +165,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/description"
+            android:textIsSelectable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
